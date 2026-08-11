@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # 1. Shared Redis Pub/Sub Message Broker for Horizontal Scaling
+  redis:
+    image: redis:7-alpine
+    container_name: codeforge-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # 2. Shared MongoDB Database for Persistent Chat & Project Storage
+  mongodb:
+    image: mongo:latest
+    container_name: codeforge-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  # 3. Backend Instance 1 (Primary Node Server)
+  backend-1:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: codeforge-backend-1
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://mongodb:27017/SOEN
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=Soen_secret
+      - GOOGLE_AI_KEY=${GOOGLE_AI_KEY}
+    depends_on:
+      redis:
+        condition: service_healthy
+      mongodb:
+        condition: service_started
+
+  # 4. Backend Instance 2 (Horizontal Replica Node Server)
+  backend-2:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: codeforge-backend-2
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - MONGO_URI=mongodb://mongodb:27017/SOEN
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=Soen_secret
+      - GOOGLE_AI_KEY=${GOOGLE_AI_KEY}
+    depends_on:
+      redis:
+        condition: service_healthy
+      mongodb:
+        condition: service_started
+
+volumes:
+  redis-data:
+  mongo-data:

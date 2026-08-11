@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  /* Surface Tokens */
+  --bg-app: #080810;
+  --bg-sidebar: #18181f;
+  --bg-panel: #181825;
+  --bg-editor: #1e1e1e;
+  --bg-terminal: #12131a;
+  --bg-elevated: #21212b;
+  --bg-hover: rgba(255, 255, 255, 0.07);
+  --bg-active: rgba(124, 58, 237, 0.2);
+
+  /* Border Tokens */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-default: rgba(255, 255, 255, 0.12);
+  --border-active: rgba(139, 92, 246, 0.5);
+  --border-focus: #8b5cf6;
+
+  /* Text Tokens */
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-disabled: #52525b;
+
+  /* Semantic Accents */
+  --accent-violet: #8b5cf6;
+  --accent-fuchsia: #d946ef;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-red: #ef4444;
+  --accent-cyan: #06b6d4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-app);
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre, kbd, samp {
+  font-family: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace;
+}
+
+/* ── Custom Dark Scrollbars ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+/* ── Focus Rings ── */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5);
+}
+
+/* ── Glassmorphism Utility Classes ── */
+.glass-panel {
+  background: rgba(24, 24, 37, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-modal {
+  background: rgba(20, 20, 30, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glow-violet {
+  box-shadow: 0 0 20px -3px rgba(139, 92, 246, 0.25);
+}
+
+.glow-fuchsia {
+  box-shadow: 0 0 20px -3px rgba(217, 70, 239, 0.25);
+}
+
+/* ── Highlight.js Code Block Overrides ── */
+pre code.hljs {
+  padding: 0;
+  background: transparent;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
