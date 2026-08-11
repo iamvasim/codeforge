@@ -419,20 +419,26 @@ cd CodeForge
 
 ### 2. Configure Environment Variables
 
-#### Backend Configuration
-Create a `.env` file inside the `backend/` directory:
+Create local `.env` files based on the provided `.env.example` templates:
 
+```bash
+# Copy backend environment template
+cp backend/.env.example backend/.env
+
+# Copy frontend environment template
+cp frontend/.env.example frontend/.env
+```
+
+#### Backend Environment Variables (`backend/.env`)
 ```env
 PORT=8080
 MONGO_URI=mongodb://127.0.0.1:27017/SOEN
-JWT_SECRET=your_super_secret_jwt_key_here
+JWT_SECRET=your_jwt_secret_here
 REDIS_URL=redis://127.0.0.1:6379
 GOOGLE_AI_KEY=your_gemini_api_key_here
 ```
 
-#### Frontend Configuration
-Create a `.env` file inside the `frontend/` directory:
-
+#### Frontend Environment Variables (`frontend/.env`)
 ```env
 VITE_API_URL=http://localhost:8080
 ```

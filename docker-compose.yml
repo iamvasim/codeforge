@@ -40,7 +40,7 @@ services:
       - PORT=3000
       - MONGO_URI=mongodb://mongodb:27017/SOEN
       - REDIS_URL=redis://redis:6379
-      - JWT_SECRET=Soen_secret
+      - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_here}
       - GOOGLE_AI_KEY=${GOOGLE_AI_KEY}
     depends_on:
       redis:
@@ -61,7 +61,7 @@ services:
       - PORT=3001
       - MONGO_URI=mongodb://mongodb:27017/SOEN
       - REDIS_URL=redis://redis:6379
-      - JWT_SECRET=Soen_secret
+      - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_here}
       - GOOGLE_AI_KEY=${GOOGLE_AI_KEY}
     depends_on:
       redis:
